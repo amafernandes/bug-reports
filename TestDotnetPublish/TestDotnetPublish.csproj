@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json" CopyToPublishDirectory="Never" />
+    <Content Update="appsettings.*.json" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResolvedFileToPublish Condition="'$(PublishProfileName)'!='' And Exists('appsettings.$(PublishProfileName).json')" Include="appsettings.$(PublishProfileName).json">
+      <RelativePath>appsettings.json</RelativePath>
+    </ResolvedFileToPublish>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="branding/**/*" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(PublishProfileName)'!=''">
+    <_CustomFiles Include="branding\$(PublishProfileName)/**/*" />
+    <Content Update="@(_CustomFiles->'wwwroot\%(RecursiveDir)%(Filename)%(Extension)')" CopyToPublishDirectory="Never" />
+    <DotNetPublishFiles Include="@(_CustomFiles)" CopyToPublishDirectory="Always">
+      <DestinationRelativePath>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+    </DotNetPublishFiles>
+  </ItemGroup>
+
+</Project>

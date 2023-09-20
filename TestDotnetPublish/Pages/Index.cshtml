@@ -1,0 +1,13 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@inject IConfiguration Configuration
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to @Configuration["BrandName"] </h1>
+    <p>Test ASP.NET Core Web apps publishing with <b>dotnet publish</b>.</p>
+
+    <img src="~/images/brand.png" />
+</div>
